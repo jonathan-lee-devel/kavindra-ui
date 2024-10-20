@@ -17,12 +17,11 @@
 				<img src={welcome_fallback} alt="Welcome" />
 			</picture>
 		</span>
-
-		to your new<br />SvelteKit app
 	</h1>
+  <h1>to<br />Kavindra.io</h1>
 
 	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
+		An <strong>Open-source</strong> alternative to Jira
 	</h2>
 
 	<Counter />
