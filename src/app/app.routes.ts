@@ -21,11 +21,11 @@ export const routes: Routes = [
   },
   /* AUTHENTICATED ROUTES */
   {
-    path: 'home',
+    path: ':clientId/home',
     component: HomePageComponent,
   },
   {
-    path: 'schedule',
+    path: ':clientId/schedule',
     component: SchedulePageComponent,
   }
 ];
