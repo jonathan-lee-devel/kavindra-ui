@@ -16,7 +16,6 @@ import {NavbarComponent} from './components/lib/_navbar/navbar/navbar.component'
 })
 export class AppComponent {
   title = 'kavindra-ui';
-  visible: boolean = false;
 
   constructor(private readonly config: PrimeNGConfig) {
     this.config.theme.set({
@@ -27,13 +26,5 @@ export class AppComponent {
         }
       }
     });
-  }
-
-  showDialog() {
-    this.visible = true;
-  }
-
-  closeDialog() {
-    this.visible = false;
   }
 }
