@@ -15,7 +15,7 @@ import {NavbarComponent} from './components/lib/_navbar/navbar/navbar.component'
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'kavindra-ui';
+  title = 'Kavindra';
 
   constructor(private readonly config: PrimeNGConfig) {
     this.config.theme.set({
