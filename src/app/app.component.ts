@@ -4,8 +4,8 @@ import {PrimeNGConfig} from 'primeng/api';
 import {Aura} from 'primeng/themes/aura';
 import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
-import {NavbarComponent} from './components/lib/navbar/navbar.component';
 import {FooterComponent} from './components/lib/footer/footer.component';
+import {NavbarComponent} from './components/lib/_navbar/navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
