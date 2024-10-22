@@ -1,11 +1,12 @@
 import { Routes } from '@angular/router';
 
 import { SchedulePageComponent } from './components/pages/_authenticated/schedule-page/schedule-page.component';
-import { HomePageComponent } from './components/pages/home-page/home-page.component';
+import { HomePageComponent } from './components/pages/_authenticated/home-page/home-page.component';
 import { LandingPageComponent } from './components/pages/landing-page/landing-page.component';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
 import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
 import { LoginSuccessComponent } from './components/pages/login-success/login-success.component';
+import { BacklogPageComponent } from './components/pages/_authenticated/backlog-page/backlog-page.component';
 
 export enum RoutePath {
   /* ANONYMOUS ROUTES */
@@ -18,6 +19,7 @@ export enum RoutePath {
   LOGIN_SUCCESS = 'login-success',
   HOME = ':clientId/home',
   SCHEDULE = ':clientId/schedule',
+  BACKLOG = ':clientId/backlog',
 }
 
 export const routes: Routes = [
@@ -46,6 +48,10 @@ export const routes: Routes = [
   {
     path: RoutePath.SCHEDULE,
     component: SchedulePageComponent,
+  },
+  {
+    path: RoutePath.BACKLOG,
+    component: BacklogPageComponent,
   },
 ];
 

@@ -36,7 +36,7 @@ export class AuthService {
   }
 
   public getNextParamFromLocalStorageAndNoReset() {
-    return localStorage.getItem(AuthService.nextParam);
+    return null;
   }
 
   public setNextParamInLocalStorageIfNotAnonymous(next: string | null) {
