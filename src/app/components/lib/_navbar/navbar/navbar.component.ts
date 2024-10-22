@@ -1,8 +1,9 @@
 import { NgClass, NgIf } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { ProductsDropdownComponent } from '../products-dropdown/products-dropdown.component';
+import { UserAuthenticationStore } from '../../../../+state/auth/user-auth.store';
 
 @Component({
   selector: 'app-navbar',
@@ -13,4 +14,5 @@ import { ProductsDropdownComponent } from '../products-dropdown/products-dropdow
 })
 export class NavbarComponent {
   isProductsDropdownVisible = signal<boolean>(false);
+  protected readonly userAuthenticationStore = inject(UserAuthenticationStore);
 }

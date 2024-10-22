@@ -5,6 +5,7 @@ import { HomePageComponent } from './components/pages/home-page/home-page.compon
 import { LandingPageComponent } from './components/pages/landing-page/landing-page.component';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
 import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
+import { LoginSuccessComponent } from './components/pages/login-success/login-success.component';
 
 export enum RoutePath {
   /* ANONYMOUS ROUTES */
@@ -14,6 +15,7 @@ export enum RoutePath {
   /* ERROR ROUTES */
   ERROR_NOT_FOUND = 'error/not-found',
   /* AUTHENTICATED ROUTES */
+  LOGIN_SUCCESS = 'login-success',
   HOME = ':clientId/home',
   SCHEDULE = ':clientId/schedule',
 }
@@ -34,6 +36,10 @@ export const routes: Routes = [
   },
   /* AUTHENTICATED ROUTES */
   {
+    path: RoutePath.LOGIN_SUCCESS,
+    component: LoginSuccessComponent,
+  },
+  {
     path: RoutePath.HOME,
     component: HomePageComponent,
   },
@@ -44,10 +50,13 @@ export const routes: Routes = [
 ];
 
 export const rebaseRoutePath = (routePath: RoutePath) => `/${routePath}`;
+export const rebaseRoutePathWithClientId = (
+  routePath: RoutePath,
+  clientId: string | undefined,
+) => `/${routePath.replace(routePathParameters.CLIENT_ID, clientId ?? '')}`;
 export const rebaseRoutePathAsString = (routePathAsString: string) =>
   `/${routePathAsString}`;
 
 export const routePathParameters = {
-  PROPERTY_ID: ':propertyId',
-  TOKEN_VALUE: ':tokenValue',
+  CLIENT_ID: ':clientId',
 } as const;

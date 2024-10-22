@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { SupabaseService } from '../../services/supabase/supabase.service';
 import { RouterUtils } from '../../util/router/Router.utils';
 import { NotificationsStore } from '../notifications/notifications.store';
+import { MessageService } from 'primeng/api';
 
 export type LoggedInState = 'INIT' | 'NOT_LOGGED_IN' | 'LOADING' | 'LOGGED_IN';
 
@@ -32,6 +33,7 @@ export const UserAuthenticationStore = signalStore(
     const router = inject(Router);
     const notificationsStore = inject(NotificationsStore);
     const supabaseService = inject(SupabaseService);
+    const messageService = inject(MessageService);
     return {
       onLoginComplete: async () => {
         const next = authService.getNextParamFromLocalStorageAndNoReset();
@@ -41,6 +43,12 @@ export const UserAuthenticationStore = signalStore(
             .catch(RouterUtils.navigateCatchErrorCallback);
         }
         patchState(store, { loggedInState: 'LOGGED_IN' });
+        messageService.add({
+          severity: 'info',
+          life: 3_000,
+          summary: 'Login Success',
+          detail: `Welcome back: ${supabaseService.session?.user?.email}`,
+        });
       },
       userCheckIn: () => {
         if (store.loggedInState() === 'LOGGED_IN') {
@@ -110,6 +118,8 @@ export const UserAuthenticationStore = signalStore(
         const { error } = await supabaseService.signInWithGoogle();
         if (error) {
           store.onLoginError(error);
+        } else {
+          store.onLoginComplete();
         }
       },
       attemptSupabaseLoginWithGitHub: async () => {

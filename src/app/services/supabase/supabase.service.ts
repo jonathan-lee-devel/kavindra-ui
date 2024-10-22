@@ -59,7 +59,7 @@ export class SupabaseService {
     return this._supabaseClient.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${environment.FRONT_END_URL}/login-in-progress`,
+        redirectTo: `${environment.FRONT_END_URL}/login-success`,
       },
     });
   }
@@ -68,7 +68,7 @@ export class SupabaseService {
     return this._supabaseClient.auth.signInWithOAuth({
       provider: 'github',
       options: {
-        redirectTo: `${environment.FRONT_END_URL}/login-in-progress`,
+        redirectTo: `${environment.FRONT_END_URL}/login-success`,
       },
     });
   }
