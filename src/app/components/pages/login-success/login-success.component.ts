@@ -24,7 +24,7 @@ export class LoginSuccessComponent implements OnInit {
         take(1),
         delay(2500),
         tap(() => {
-          if (this.userAuthenticationStore.loggedInState() === 'LOGGED_IN') {
+          if (this.userAuthenticationStore.isLoggedIn()) {
             this.router
               .navigate([
                 rebaseRoutePathWithClientId(

@@ -60,12 +60,10 @@ export class AppService {
         tap(() => {
           this.userAuthenticationStore.checkLoginOnRefresh();
         }),
-        filter(
-          () => this.userAuthenticationStore.loggedInState() === 'LOGGED_IN',
-        ),
+        filter(() => this.userAuthenticationStore.isLoggedIn()),
         tap(() => {
-          this.notificationsStore.loadNotifications();
-          this.paymentStore.loadPaymentStatus();
+          // this.notificationsStore.loadNotifications();
+          // this.paymentStore.loadPaymentStatus();
         }),
       )
       .subscribe();
@@ -92,18 +90,19 @@ export class AppService {
       }
       this.userAuthenticationStore.onLoginComplete().then(() => {
         if (
-          this.userAuthenticationStore.loggedInState() === 'LOGGED_IN' &&
+          this.userAuthenticationStore.isLoggedIn() &&
           this.supabaseService.session?.access_token
         ) {
-          this.userAuthenticationStore.userCheckIn();
-          this.paymentStore.loadPaymentStatus();
-          this.notificationsStore.loadNotifications();
+          // this.userAuthenticationStore.userCheckIn();
+          // this.paymentStore.loadPaymentStatus();
+          // this.notificationsStore.loadNotifications();
         }
       });
     });
   }
 
   initFeatureFlags() {
+    return;
     this.featureFlagsStore.onFeatureFlagsInit();
     flagsmith
       .init({

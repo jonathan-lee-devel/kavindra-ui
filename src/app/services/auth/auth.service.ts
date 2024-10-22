@@ -39,27 +39,25 @@ export class AuthService {
     return localStorage.getItem(AuthService.nextParam);
   }
 
-  public getNextParamFromLocalStorageAndReset() {
-    const next = localStorage.getItem(AuthService.nextParam);
-    localStorage.removeItem(AuthService.nextParam);
-    return next;
-  }
-
   public setNextParamInLocalStorageIfNotAnonymous(next: string | null) {
-    if (
-      next?.startsWith('/#') ||
-      next === rebaseRoutePath(RoutePath.LANDING_PAGE)
-    ) {
-      return;
-    }
-    if (next && next !== '/' && next !== rebaseRoutePath(RoutePath.LOGIN)) {
-      localStorage.setItem(AuthService.nextParam, next);
-    } else {
-      localStorage.setItem(
-        AuthService.nextParam,
-        rebaseRoutePath(RoutePath.HOME),
-      );
-    }
+    console.log(next);
+    localStorage.removeItem(AuthService.nextParam);
+    return;
+    // if (
+    //   next?.startsWith('/#') ||
+    //   next === rebaseRoutePath(RoutePath.LANDING_PAGE) ||
+    //   next === rebaseRoutePath(RoutePath.HOME)
+    // ) {
+    //   return;
+    // }
+    // if (next && next !== '/' && next !== rebaseRoutePath(RoutePath.LOGIN)) {
+    //   localStorage.setItem(AuthService.nextParam, next);
+    // } else {
+    //   localStorage.setItem(
+    //     AuthService.nextParam,
+    //     rebaseRoutePath(RoutePath.HOME),
+    //   );
+    // }
   }
 
   getDarkModeSettingFromLocalStorage() {

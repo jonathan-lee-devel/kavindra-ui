@@ -115,12 +115,14 @@ export const UserAuthenticationStore = signalStore(
       },
       attemptSupabaseLoginWithGoogle: async () => {
         patchState(store, { loggedInState: 'LOADING' });
-        const { error } = await supabaseService.signInWithGoogle();
-        if (error) {
-          store.onLoginError(error);
-        } else {
-          store.onLoginComplete();
-        }
+        setTimeout(async () => {
+          const { error } = await supabaseService.signInWithGoogle();
+          if (error) {
+            store.onLoginError(error);
+          } else {
+            store.onLoginComplete();
+          }
+        }, 2500);
       },
       attemptSupabaseLoginWithGitHub: async () => {
         patchState(store, { loggedInState: 'LOADING' });
@@ -148,6 +150,7 @@ export const UserAuthenticationStore = signalStore(
       currentUserEmail: computed(() => supabaseService?.session?.user.email),
       currentUserId: computed(() => supabaseService?.session?.user.id),
       isLoggedIn: computed(() => store.loggedInState() === 'LOGGED_IN'),
+      isLoading: computed(() => store.loggedInState() === 'LOADING'),
     };
   }),
 );

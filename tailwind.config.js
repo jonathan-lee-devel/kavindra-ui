@@ -7,4 +7,5 @@ module.exports = {
     extend: {},
   },
   plugins: [require('tailwindcss-primeui'), require('@tailwindcss/forms')],
+  corePlugins: { preflight: true },
 }
