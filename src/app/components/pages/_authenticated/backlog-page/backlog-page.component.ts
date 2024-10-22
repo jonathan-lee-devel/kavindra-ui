@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './backlog-page.component.html',
-  styleUrl: './backlog-page.component.scss'
+  styleUrl: './backlog-page.component.scss',
 })
-export class BacklogPageComponent {
-
-}
+export class BacklogPageComponent {}
