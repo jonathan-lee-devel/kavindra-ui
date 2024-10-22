@@ -1,8 +1,8 @@
 import {Component, signal} from '@angular/core';
 import {NgClass, NgIf} from '@angular/common';
 import {ProductsDropdownComponent} from '../products-dropdown/products-dropdown.component';
-import {FeaturesDropdownComponent} from '../features-dropdown/features-dropdown.component';
 import {RouterLink} from '@angular/router';
+
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +11,6 @@ import {RouterLink} from '@angular/router';
     NgIf,
     NgClass,
     ProductsDropdownComponent,
-    FeaturesDropdownComponent,
     RouterLink
   ],
   templateUrl: './navbar.component.html',
@@ -19,5 +18,4 @@ import {RouterLink} from '@angular/router';
 })
 export class NavbarComponent {
   isProductsDropdownVisible = signal<boolean>(false);
-  isFeaturesDropdownVisible = signal<boolean>(false);
 }
