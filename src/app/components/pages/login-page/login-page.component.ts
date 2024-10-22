@@ -5,6 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { rebaseRoutePath, RoutePath } from '../../../app.routes';
 import { RouterUtils } from '../../../util/router/Router.utils';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login-page',
@@ -20,6 +21,7 @@ export class LoginPageComponent {
   protected readonly userAuthenticationStore = inject(UserAuthenticationStore);
 
   private readonly router = inject(Router);
+  private readonly messageService = inject(MessageService);
 
   doGoogleLogin() {
     this.userAuthenticationStore.attemptSupabaseLoginWithGoogle();
@@ -30,12 +32,22 @@ export class LoginPageComponent {
   }
 
   async doEmailLogin() {
-    await this.userAuthenticationStore.attemptSupabaseLoginWithEmail(
-      this.email,
-      this.password,
-    );
-    this.router
-      .navigate([rebaseRoutePath(RoutePath.LOGIN_SUCCESS)])
-      .catch(RouterUtils.navigateCatchErrorCallback);
+    const error =
+      await this.userAuthenticationStore.attemptSupabaseLoginWithEmail(
+        this.email,
+        this.password,
+      );
+    if (!error) {
+      this.router
+        .navigate([rebaseRoutePath(RoutePath.LOGIN_SUCCESS)])
+        .catch(RouterUtils.navigateCatchErrorCallback);
+      return;
+    }
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Login Error',
+      detail: 'Error during login',
+      life: 3_000,
+    });
   }
 }

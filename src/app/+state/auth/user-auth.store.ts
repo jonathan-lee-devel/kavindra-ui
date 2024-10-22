@@ -103,9 +103,10 @@ export const UserAuthenticationStore = signalStore(
         );
         if (error) {
           store.onLoginError(error);
-        } else {
-          store.onLoginComplete();
+          return error;
         }
+        store.onLoginComplete();
+        return null;
       },
       attemptSupabaseLoginWithGoogle: async () => {
         patchState(store, { loggedInState: 'LOADING' });
