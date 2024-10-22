@@ -39,12 +39,8 @@ export const UserAuthenticationStore = signalStore(
           router
             .navigateByUrl(next)
             .catch(RouterUtils.navigateCatchErrorCallback);
-        } else {
-          patchState(store, { loggedInState: 'LOGGED_IN' });
-          router
-            .navigate([rebaseRoutePath(RoutePath.LOGIN_SUCCESS)])
-            .catch(RouterUtils.navigateCatchErrorCallback);
         }
+        patchState(store, { loggedInState: 'LOGGED_IN' });
       },
       userCheckIn: () => {
         if (store.loggedInState() === 'LOGGED_IN') {
