@@ -6,27 +6,48 @@ import { LandingPageComponent } from './components/pages/landing-page/landing-pa
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
 import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
 
+export enum RoutePath {
+  /* ANONYMOUS ROUTES */
+  LANDING_PAGE = '',
+  LOGIN = 'login',
+  REGISTER = 'register',
+  /* ERROR ROUTES */
+  ERROR_NOT_FOUND = 'error/not-found',
+  /* AUTHENTICATED ROUTES */
+  HOME = ':clientId/home',
+  SCHEDULE = ':clientId/schedule',
+}
+
 export const routes: Routes = [
   /* ANONYMOUS ROUTES */
   {
-    path: '',
+    path: RoutePath.LANDING_PAGE,
     component: LandingPageComponent,
   },
   {
-    path: 'login',
+    path: RoutePath.LOGIN,
     component: LoginPageComponent,
   },
   {
-    path: 'register',
+    path: RoutePath.REGISTER,
     component: RegisterPageComponent,
   },
   /* AUTHENTICATED ROUTES */
   {
-    path: ':clientId/home',
+    path: RoutePath.HOME,
     component: HomePageComponent,
   },
   {
-    path: ':clientId/schedule',
+    path: RoutePath.SCHEDULE,
     component: SchedulePageComponent,
   },
 ];
+
+export const rebaseRoutePath = (routePath: RoutePath) => `/${routePath}`;
+export const rebaseRoutePathAsString = (routePathAsString: string) =>
+  `/${routePathAsString}`;
+
+export const routePathParameters = {
+  PROPERTY_ID: ':propertyId',
+  TOKEN_VALUE: ':tokenValue',
+} as const;

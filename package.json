@@ -20,8 +20,10 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
+    "@ngrx/signals": "^18.1.0",
     "@tailwindcss/forms": "^0.5.9",
     "animate.css": "^4.1.1",
+    "flagsmith": "^7.0.1",
     "primeng": "18.0.0-beta.3",
     "rxjs": "~7.8.0",
     "tailwindcss-primeui": "^0.3.4",
@@ -32,6 +34,7 @@
     "@angular-devkit/build-angular": "^18.2.9",
     "@angular/cli": "^18.2.9",
     "@angular/compiler-cli": "^18.2.0",
+    "@supabase/supabase-js": "^2.45.4",
     "@types/jasmine": "~5.1.0",
     "@typescript-eslint/eslint-plugin": "^8.11.0",
     "autoprefixer": "^10.4.20",
@@ -48,5 +51,11 @@
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
     "typescript": "~5.5.2"
+  },
+  "resolutions": {
+    "@supabase/auth-js": "2.61.0"
+  },
+  "overrides": {
+    "@supabase/auth-js": "2.61.0"
   }
 }

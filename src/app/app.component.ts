@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -12,6 +12,9 @@ import { FooterComponent } from './components/lib/footer/footer.component';
 import { ToastModule } from 'primeng/toast';
 import { SidebarComponent } from './components/lib/_sidebar/sidebar/sidebar.component';
 import { filter, tap } from 'rxjs';
+import { AppService } from './app.service';
+import { AuthService } from './services/auth/auth.service';
+import { UserPreferencesStore } from './+state/user-preferences/user-preferences.store';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +34,7 @@ import { filter, tap } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Kavindra';
   isSidebarVisible = signal<boolean>(false);
   isBottomMessageVisible = signal<boolean>(true);
@@ -45,11 +48,16 @@ export class AppComponent {
     });
   };
 
+  private readonly authService = inject(AuthService);
+  private readonly userPreferencesStore = inject(UserPreferencesStore);
+
   constructor(
     private readonly config: PrimeNGConfig,
     private readonly messageService: MessageService,
     private readonly router: Router,
+    private readonly appService: AppService,
   ) {
+    this.appService.initSupabase();
     this.config.theme.set({
       preset: Aura,
       options: {
@@ -74,5 +82,23 @@ export class AppComponent {
         }),
       )
       .subscribe();
+  }
+
+  ngOnInit() {
+    if (
+      this.authService.getDarkModeSettingFromLocalStorage() &&
+      !this.userPreferencesStore.isDarkMode()
+    ) {
+      this.userPreferencesStore.setDarkModeEnabled();
+    } else if (
+      !this.authService.getDarkModeSettingFromLocalStorage() &&
+      this.userPreferencesStore.isDarkMode()
+    ) {
+      this.userPreferencesStore.setLightModeEnabled();
+    }
+
+    this.appService.pipeAuthAndDarkModeToggleRouterEvents(this.router);
+    this.appService.pipeNextParamAuthEvents(this.router);
+    this.appService.initFeatureFlags();
   }
 }
