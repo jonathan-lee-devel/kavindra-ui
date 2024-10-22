@@ -1,5 +1,11 @@
-<app-navbar />
+<app-navbar/>
 <main class="flex flex-col min-h-screen">
-  <router-outlet />
+  <router-outlet/>
 </main>
-<app-footer />
+<app-bottom-full-width-message
+  *ngIf="isBottomMessageVisible()"
+  [onAccept]="onAccept"
+  [message]="'This application is in a very early phase of development, not all functionality promised is complete and bug-free yet.'"
+  [acceptButtonText]="'Acknowledge'"
+/>
+<app-footer/>
