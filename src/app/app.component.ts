@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -10,6 +10,8 @@ import { BottomFullWidthMessageComponent } from './components/lib/_messages/bott
 import { NavbarComponent } from './components/lib/_navbar/navbar/navbar.component';
 import { FooterComponent } from './components/lib/footer/footer.component';
 import { ToastModule } from 'primeng/toast';
+import { SidebarComponent } from './components/lib/_sidebar/sidebar/sidebar.component';
+import { filter, tap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +25,7 @@ import { ToastModule } from 'primeng/toast';
     BottomFullWidthMessageComponent,
     NgIf,
     ToastModule,
+    SidebarComponent,
   ],
   providers: [MessageService],
   templateUrl: './app.component.html',
@@ -30,6 +33,7 @@ import { ToastModule } from 'primeng/toast';
 })
 export class AppComponent {
   title = 'Kavindra';
+  isSidebarVisible = signal<boolean>(false);
   isBottomMessageVisible = signal<boolean>(true);
   onAccept: () => void = () => {
     this.isBottomMessageVisible.set(false);
@@ -44,6 +48,7 @@ export class AppComponent {
   constructor(
     private readonly config: PrimeNGConfig,
     private readonly messageService: MessageService,
+    private readonly router: Router,
   ) {
     this.config.theme.set({
       preset: Aura,
@@ -54,5 +59,20 @@ export class AppComponent {
         },
       },
     });
+    this.router.events
+      .pipe(
+        filter(
+          (routerEvent): routerEvent is NavigationEnd =>
+            routerEvent instanceof NavigationEnd,
+        ),
+        tap((event) => {
+          this.isSidebarVisible.set(
+            new RegExp(
+              '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+            ).test(event.url.split('/')?.[1]),
+          );
+        }),
+      )
+      .subscribe();
   }
 }

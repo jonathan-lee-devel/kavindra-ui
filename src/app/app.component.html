@@ -1,10 +1,13 @@
 <p-toast [position]="'bottom-right'" />
 <app-navbar/>
+<div>
+  <app-sidebar [isVisible]="isSidebarVisible()" />
+</div>
 <main class="flex flex-col min-h-screen">
   <router-outlet/>
 </main>
 <app-bottom-full-width-message
-  *ngIf="isBottomMessageVisible()"
+  *ngIf="isBottomMessageVisible() && !isSidebarVisible()"
   [onAccept]="onAccept"
   [message]="'This application is in a very early phase of development, not all functionality promised is complete and bug-free yet.'"
   [acceptButtonText]="'Acknowledge'"
