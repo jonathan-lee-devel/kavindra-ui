@@ -8,9 +8,8 @@ describe('BottomFullWidthMessageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BottomFullWidthMessageComponent]
-    })
-    .compileComponents();
+      imports: [BottomFullWidthMessageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BottomFullWidthMessageComponent);
     component = fixture.componentInstance;
